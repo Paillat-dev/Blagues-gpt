@@ -101,9 +101,9 @@
         <button onclick="showJoke()">Afficher une blague</button>
     </div>
     <script>
-        function showJoke() {
+function showJoke() {
     const jokeElement = document.querySelector('.joke');
-    fetch('https://blague.xyz/api/joke/1')
+    fetch('https://cors-anywhere.herokuapp.com/https://blague.xyz/api/joke/1')
         .then(response => response.json())
         .then(data => {
             const joke = data.joke;
@@ -118,6 +118,7 @@
             jokeElement.textContent = 'Oops, something went wrong!';
         });
 }
+
 
 
         // 3JS Background
