@@ -101,28 +101,24 @@
         <button onclick="showJoke()">Afficher une blague</button>
     </div>
     <script>
-        const jokes = [
-            "Pourquoi les plongeurs plongent-ils toujours en arrière et jamais en avant ? Parce que sinon ils tombent dans le bateau.",
-            "Pourquoi les plages ne sont jamais propres en Italie ? Parce que dès qu’on y met les pieds on y trouve des coquilles.",
-            "Pourquoi les girafes ont-elles un long cou ? Parce que leur tête est très, très loin de leur corps.",
-            "Pourquoi ne faut-il jamais raconter d'histoires drôles à un ballon ? Parce qu'il pourrait éclater de rire.",
-            "Pourquoi les poissons sont-ils si mal élevés ? Parce qu'ils mordent à l'hameçon.",
-            "Pourquoi les Français ont-ils VRAIMENT choisi le coq comme emblème ? Parce que c'est le seul oiseau qui arrive à chanter les pieds dans la merde.",
-            "Pourquoi les oiseaux ne portent-ils jamais de slip ? Parce qu'ils ont la raie de l'air.",
-            "Comment appelle-t-on un chat tout-terrain ? Un chat quatre-quatre.",
-            "Pourquoi le soleil se couche-t-il à l'ouest ? Parce que l'est est déjà pris.",
-            "Quel est le comble pour un électricien ? De ne pas être au courant."
-        ];
-
         function showJoke() {
-            const jokeElement = document.querySelector('.joke');
-            const randomIndex = Math.floor(Math.random() * jokes.length);
-            jokeElement.textContent = jokes[randomIndex];
+    const jokeElement = document.querySelector('.joke');
+    fetch('https://blague.xyz/api/joke/1')
+        .then(response => response.json())
+        .then(data => {
+            const joke = data.joke;
+            jokeElement.textContent = joke.question + ' ' + joke.answer;
             jokeElement.style.animation = 'none';
             setTimeout(() => {
                 jokeElement.style.animation = 'fadeIn 2s ease 1s forwards';
             }, 1);
-        }
+        })
+        .catch(error => {
+            console.log(error);
+            jokeElement.textContent = 'Oops, something went wrong!';
+        });
+}
+
 
         // 3JS Background
         const scene = new THREE.Scene();
